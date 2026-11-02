@@ -1,0 +1,8 @@
+/vendor/
+/build/
+# A library doesn't pin its dependencies: consumers resolve their own.
+/composer.lock
+/.phpunit.cache/
+/.phpunit.result.cache
+/.phpstan.cache/
+/.phpcs.cache

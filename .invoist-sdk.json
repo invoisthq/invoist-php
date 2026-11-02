@@ -1,0 +1,22 @@
+{
+  "name": "PHP",
+  "mirror": "invoisthq/invoist-php",
+  "registry": "Packagist",
+  "package": "invoist/invoist",
+  "tool": "php",
+  "docker": "php:8.5-cli",
+  "commands": {
+    "setup": "scripts/composer.sh install --no-interaction --no-progress",
+    "generate": "php scripts/generate.php",
+    "lint": "vendor/bin/phpcs -q && vendor/bin/phpstan analyse --no-progress --memory-limit=1G",
+    "test": "vendor/bin/phpunit",
+    "build": "scripts/composer.sh validate --strict && rm -rf build && scripts/composer.sh archive --format=tar --dir=build --file=invoist && php scripts/check-archive.php build/invoist.tar",
+    "publish_dry_run": "scripts/composer.sh validate --strict",
+    "publish": "echo 'Packagist publishes invoist/invoist by itself from the tag pushed to invoisthq/invoist-php; there is nothing to upload.'"
+  },
+  "generated": ["src/Generated"],
+  "version_files": [
+    { "path": "src/Invoist.php", "pattern": "public const string VERSION = '([^']+)';" }
+  ],
+  "tag_prefix": "v"
+}

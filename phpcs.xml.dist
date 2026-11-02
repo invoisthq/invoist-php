@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset name="Invoist"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <description>PSR-12, strict types in every file, 140-column lines outside tests.</description>
+
+    <file>src</file>
+    <file>tests</file>
+    <file>scripts</file>
+
+    <arg name="extensions" value="php"/>
+    <arg name="cache" value=".phpcs.cache"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="PSR12"/>
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="var_dump" value="null"/>
+                <element key="dd" value="null"/>
+                <element key="print_r" value="null"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="140"/>
+            <property name="absoluteLineLimit" value="160"/>
+        </properties>
+    </rule>
+    <!-- Tests hold tables of requests and fixtures that read better unwrapped. -->
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Files.LineLength.MaxExceeded">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+    <!-- The generator script declares its helper classes after the code that runs. -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>scripts/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>scripts/*</exclude-pattern>
+    </rule>
+    <!-- Generated classes keep the API's snake_case field names. -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+</ruleset>

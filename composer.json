@@ -1,0 +1,102 @@
+{
+    "name": "invoist/invoist",
+    "description": "Official PHP library for the Invoist API: turn invoices, receipts and household bills into structured data.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "invoist",
+        "invoice",
+        "receipt",
+        "bills",
+        "ocr",
+        "extraction",
+        "api",
+        "sdk",
+        "webhooks"
+    ],
+    "homepage": "https://invoi.st/docs",
+    "authors": [
+        {
+            "name": "Invoist",
+            "homepage": "https://invoi.st"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/invoisthq/invoist-php/issues",
+        "source": "https://github.com/invoisthq/invoist-php",
+        "docs": "https://invoi.st/docs",
+        "security": "https://github.com/invoisthq/invoist-php/security/policy"
+    },
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "nyholm/psr7": "^1.8",
+        "phpstan/phpstan": "^2.3",
+        "phpstan/phpstan-phpunit": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.1",
+        "phpunit/phpunit": "^12.5 || ^13.4",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.1",
+        "psr/http-message": "^2.0",
+        "squizlabs/php_codesniffer": "^4.0",
+        "symfony/yaml": "^7.4 || ^8.1"
+    },
+    "suggest": {
+        "ext-curl": "Needed by the built-in transport, unless you pass a PSR-18 client.",
+        "psr/http-client-implementation": "Any PSR-18 client (Guzzle, Symfony HttpClient, ...) can send the requests instead of curl."
+    },
+    "autoload": {
+        "psr-4": {
+            "Invoist\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Invoist\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": false
+        }
+    },
+    "scripts": {
+        "generate": "@php scripts/generate.php",
+        "generate:check": "@php scripts/generate.php --check",
+        "test": "phpunit",
+        "lint": "phpcs",
+        "fix": "phpcbf",
+        "analyse": "phpstan analyse --no-progress --memory-limit=1G",
+        "check": [
+            "@generate:check",
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "scripts-descriptions": {
+        "generate": "Regenerate src/Generated from openapi.yaml (INVOIST_OPENAPI overrides the path).",
+        "generate:check": "Fail when src/Generated is out of date with openapi.yaml.",
+        "test": "Run the tests (the live ones run only with INVOIST_API_KEY).",
+        "lint": "Check code style (PSR-12, strict types).",
+        "fix": "Fix what the style check can fix.",
+        "analyse": "Run PHPStan at max level.",
+        "check": "Drift check, style, PHPStan and tests."
+    },
+    "archive": {
+        "exclude": [
+            "/.*",
+            "/build",
+            "/vendor",
+            "/composer.lock",
+            "/phpcs.xml.dist",
+            "/phpstan.neon.dist",
+            "/phpunit.xml.dist",
+            "/scripts",
+            "/testdata",
+            "/tests"
+        ]
+    }
+}
